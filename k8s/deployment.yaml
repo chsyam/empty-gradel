@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gradle-app
+  namespace: s3
+spec:
+  selector:
+    matchLabels:
+      app: gradle-app
+  template:
+    metadata:
+      labels:
+        app: gradle-app
+    spec:
+      containers:
+      - name: gradle-app
+        image: 10.63.20.34:80/gradle-app:latest
+        ports:
+        - containerPort: 8081

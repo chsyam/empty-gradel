@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: gradle-app-virtualservice
+  namespace: s3
+spec:
+  hosts:
+  - "cryptography.example.com"  # replace with your actual hostname
+  gateways:
+  - gradle-app-gateway
+  http:
+    - match:
+      - uri:
+          prefix: "/"
+      route:
+      - destination:
+          host: gradle-app-service.gradle-app.svc.cluster.local
+          port:
+            number: 8001
+      rewrite:
+        uri: "/"
+        authority: gradle-app-service.gradle-app.svc.cluster.local:8001
